@@ -11,6 +11,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  # 在顶部定义，这样你只需要修改一个地方
+  DOCKER_USERNAME: wlget
+  GITHUB_USERNAME: WLget
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,9 +44,9 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/angus:3215
+            ghcr.io/${{ env.DOCKER_USERNAME }}/angus:3215
           labels: |
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.source=https://github.com/${{ env.GITHUB_USERNAME }}/angus
             org.opencontainers.image.description=HTTP Server
             org.opencontainers.image.licenses=MIT
           cache-from: type=gha
